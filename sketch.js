@@ -18,7 +18,7 @@ let sourceSelected
 let destinationSelected
 // sourceColor = color(87, 50, 168)
 // destColor = color(140, 68, 20)
-
+let s_time
 function resetCanvas() {
     console.log(new Node(0, 0))
     // Initializing variables
@@ -222,6 +222,7 @@ function BFSorDFS_initialize() {
 }
 function draw() {
     if (started) {
+
         // Algorithm for Dijkstra
         if (algo == "Dijkstra") {
             if (openSet.length > 0) {
@@ -259,8 +260,6 @@ function draw() {
             }
 
         }
-
-
         // Algorithm for Breadth First Search
         if (algo == "Breadth First Search") {
             if (openSet.length > 0) {
@@ -364,6 +363,14 @@ function draw() {
         endShape();
         source.show(color(87, 50, 168));
         destination.show(color(140, 68, 20));
+
+    }
+    var e_time = new Date().getTime();
+    seconds_elapsed = (e_time - s_time) / 1000;
+
+    if (seconds_elapsed) {
+        let message = document.getElementById('message')
+        message.innerHTML = `Time elasped:<span style = "font-weight: bold;">` + seconds_elapsed + ` s</span > `
     }
 
 }
@@ -371,10 +378,10 @@ function draw() {
 function dropdown(event) {
     algo = event.target.text
     let startButton = document.getElementById('startButton')
-    startButton.innerHTML = `Start ${algo}`
+    startButton.innerHTML = `Start ${algo} `
     let message = document.getElementById('message')
     if (algo === "A* Search") {
-        message.innerHTML = `Insight: A* Search <span style = "font-weight: bold;">Gurantees</span> Shortest Path`
+        message.innerHTML = `Insight: A * Search < span style = "font-weight: bold;" > Gurantees</span > Shortest Path`
     }
     else if (algo === "Dijkstra") {
         message.innerHTML = `Insight: Dijkstra's Algorithm Or A Variant Of It Is Known As UCS <span style = "font-weight: bold;">Gurantees</span> Shortest Path`
@@ -405,7 +412,7 @@ function start() {
     else {
         BFSorDFS_initialize()
     }
-
+    s_time = new Date().getTime();
     started = true;
     startButton.disabled = true
     loop();
